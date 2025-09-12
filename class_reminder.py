@@ -44,237 +44,20 @@ st.title("📅乐知班每日温馨提醒生成器")
 # auto_weather = st.session_state.get('auto_weather', '多云，气温 26-35℃')
 # weather = st.text_input("明日天气", auto_weather, key="weather_input")
 
-# 提供的JSON数据
-schedule_data = {
-    "课程安排": {
-        "星期二": {
-            "上午": [
-                "数学",
-                "语文",
-                "书法",
-                "道德与法治"
-            ],
-            "下午": [
-                "体育",
-                "音乐",
-                "数学作业辅导",
-                "经典领读"
-            ]
-        },
-        "星期三": {
-            "上午": [
-                "语文",
-                "数学",
-                "体育",
-                "英语"
-            ],
-            "下午": [
-                "心理健康-单 | 综合实践-双",
-                "信息技术",
-                "英语作业辅导",
-                "语文作业辅导"
-            ]
-        },
-        "星期四": {
-            "上午": [
-                "语文",
-                "数学",
-                "体育",
-                "美术"
-            ],
-            "下午": [
-                "英语",
-                "道德与法治",
-                "诵读",
-                "数学作业辅导"
-            ]
-        },
-        "星期五": {
-            "上午": [
-                "数学",
-                "语文",
-                "阅读",
-                "美术"
-            ],
-            "下午": [
-                "劳动",
-                "英语",
-                "自然拼读",
-                "语文作业辅导"
-            ]
-        },
-        "星期一": {
-            "上午": [
-                "语文",
-                "班队活动/美丽江西",
-                "数学",
-                "体育"
-            ],
-            "下午": [
-                "科学",
-                "音乐",
-                "语文作业辅导",
-                "思维探险队"
-            ]
-        }
-    },
-    "社团安排": {
-        "星期二": [
-            {
-                "成员": [
-                    "夏润修"
-                ],
-                "社团名称": "武术（全年级）"
-            }
-        ],
-        "星期三": [
-            {
-                "成员": [
-                    "徐纯熙",
-                    "廖将来"
-                ],
-                "社团名称": "彩笔画社团（3-5年级）"
-            }
-        ],
-        "星期四": [
-            {
-                "成员": [
-                    "徐若灵",
-                    "赵翊然"
-                ],
-                "社团名称": "3D打印社团（2-5年级）"
-            },
-            {
-                "成员": [
-                    "王梓桐",
-                    "余欣妍",
-                    "郑婉诺"
-                ],
-                "社团名称": "创意美术社团（3-5年级）"
-            },
-            {
-                "成员": [
-                    "王宸亿",
-                    "陈梓卿",
-                    "徐之妍"
-                ],
-                "社团名称": "国画社团（3-5年级）"
-            },
-            {
-                "成员": [
-                    "朱祉漩",
-                    "王赟艺"
-                ],
-                "社团名称": "拉丁舞社团（3-5年级）"
-            },
-            {
-                "成员": [
-                    "徐弘岩"
-                ],
-                "社团名称": "篮球（3-5年级）"
-            },
-            {
-                "成员": [
-                    "邱文轩",
-                    "汤凌晟",
-                    "徐彦哲"
-                ],
-                "社团名称": "硬笔书法（3-5年级）"
-            },
-            {
-                "成员": [
-                    "蒋濛颀",
-                    "杨浩铭"
-                ],
-                "社团名称": "足球社团（3-5年级）"
-            }
-        ],
-        "星期五": [
-            {
-                "成员": [
-                    "丁冉熙"
-                ],
-                "社团名称": "葫芦丝社团（3-5年级）"
-            },
-            {
-                "成员": [
-                    "钟紫彤"
-                ],
-                "社团名称": "花样跳绳（3-5年级）"
-            },
-            {
-                "成员": [
-                    "廖子康",
-                    "廖子安"
-                ],
-                "社团名称": "科普社团（3-5年级）"
-            },
-            {
-                "成员": [
-                    "李溍堃",
-                    "占承航"
-                ],
-                "社团名称": "乒乓球（3-5年级）"
-            },
-            {
-                "成员": [
-                    "刘飞雪",
-                    "詹华旭"
-                ],
-                "社团名称": "趣味心理社团（3-5年级）"
-            },
-            {
-                "成员": [
-                    "郏宸唯"
-                ],
-                "社团名称": "软笔书法（4-5年级）"
-            },
-            {
-                "成员": [
-                    "徐之恒",
-                    "涂致远",
-                    "郑子其"
-                ],
-                "社团名称": "田径社团（4-5年级）"
-            },
-            {
-                "成员": [
-                    "周致远"
-                ],
-                "社团名称": "线描画社团（3-5年级）"
-            },
-            {
-                "成员": [
-                    "姜懿恩"
-                ],
-                "社团名称": "英语绘本阅读（全年级）"
-            },
-            {
-                "成员": [
-                    "余书洛",
-                    "章奕杰",
-                    "章一诺",
-                    "姜海逸"
-                ],
-                "社团名称": "羽毛球（3-5年级）"
-            },
-            {
-                "成员": [
-                    "曹欣念",
-                    "蒋诗怡"
-                ],
-                "社团名称": "中国舞社团（3-5年级）"
-            }
-        ]
-    },
-    "值日安排": {
-        "星期二": "苏心怡，徐之妍，周致远，李溍堃，余书洛，王赟艺，姜懿恩，郑子其",
-        "星期三": "丁冉熙，朱祉漩，章奕杰，徐彦哲，姜海逸，陈梓卿，王宸亿，邱文轩",
-        "星期四": "钟紫彤，蒋诗怡，廖子康，徐之恒，郏宸唯，廖子安，刘飞雪，詹华旭",
-        "星期五": "徐纯熙，徐若灵，廖将来，赵翊然，汤凌晟，郑婉诺，蒋濛颀，涂志宏",
-        "星期一": "曹欣念，王梓桐，徐弘岩，涂致远，占承航，夏润修，杨浩铭，章一诺"
-    }
-}
+# 从外部JSON文件加载数据
+def load_schedule_data():
+    try:
+        with open('schedule_data.json', 'r', encoding='utf-8') as f:
+            return json.load(f)
+    except FileNotFoundError:
+        st.error("找不到schedule_data.json文件，请确保文件存在")
+        return {}
+    except json.JSONDecodeError:
+        st.error("schedule_data.json文件格式错误，请检查JSON格式")
+        return {}
+
+# 加载课程安排数据
+schedule_data = load_schedule_data()
 
 # 获取当前日期和明日日期
 today = datetime.now()
@@ -362,7 +145,7 @@ def generate_reminder():
         reminder += f"・上午：{', '.join([f'[{cls}]' for cls in morning_classes])}\n"
         reminder += f"・下午：{', '.join([f'[{cls}]' for cls in afternoon_classes])}\n\n"
     else:
-        reminder += f"明日无课程安排\n\n"
+        reminder += f"・明日无课程安排\n\n"
     
     # 社团安排
     # reminder += f"**🎨 社团课程安排：**\n"
@@ -389,7 +172,7 @@ def generate_reminder():
     # reminder += f"**👔 着装提醒：**\n"
     reminder += f"👔着装提醒：\n"
     if selected_weekday == "星期一":
-        reminder += f"❗️明天是星期一，大家穿校服，戴红领巾。\n\n"
+        reminder += f"・❗️明天是星期一，大家穿校服，戴红领巾。\n\n"
     reminder += f"・干净舒适即可\n\n"
     
     # 其他注意事项 - 可以使用LLM生成
@@ -477,3 +260,136 @@ if st.button("生成乐知班温馨提示", key="generate_btn", use_container_wi
     #     mime="text/markdown"
     # )
     # st.success("点击上方按钮可复制或下载温馨提示内容！")
+
+# 在页面底部添加编辑界面的入口
+st.markdown("---")
+if st.checkbox("显示数据编辑界面"):
+    st.subheader(".schedule_data.json 数据编辑界面")
+    
+    # 添加保存函数
+    def save_schedule_data(data):
+        try:
+            with open('schedule_data.json', 'w', encoding='utf-8') as f:
+                json.dump(data, f, ensure_ascii=False, indent=2)
+            st.success("数据已保存成功！")
+        except Exception as e:
+            st.error(f"保存数据时出错：{str(e)}")
+    
+    # 创建标签页用于不同类型的编辑
+    tab1, tab2, tab3 = st.tabs(["课程安排", "社团安排", "值日安排"])
+    
+    # 课程安排编辑
+    with tab1:
+        st.subheader("课程安排编辑")
+        course_data = schedule_data.get("课程安排", {})
+        
+        # 为每个星期创建编辑区域
+        weekdays = ["星期一", "星期二", "星期三", "星期四", "星期五"]
+        edited_course_data = {}
+        
+        for weekday in weekdays:
+            st.markdown(f"#### {weekday}")
+            weekday_data = course_data.get(weekday, {"上午": [], "下午": []})
+            
+            # 编辑上午课程
+            st.markdown("##### 上午课程")
+            morning_classes = weekday_data.get("上午", [])
+            morning_count = st.number_input(f"{weekday}上午课程数量", min_value=0, max_value=10, 
+                                          value=len(morning_classes), key=f"{weekday}_morning_count")
+            
+            edited_morning = []
+            for i in range(morning_count):
+                default_value = morning_classes[i] if i < len(morning_classes) else ""
+                class_name = st.text_input(f"{weekday}上午第{i+1}节课", value=default_value, 
+                                         key=f"{weekday}_morning_{i}")
+                edited_morning.append(class_name)
+            
+            # 编辑下午课程
+            st.markdown("##### 下午课程")
+            afternoon_classes = weekday_data.get("下午", [])
+            afternoon_count = st.number_input(f"{weekday}下午课程数量", min_value=0, max_value=10, 
+                                            value=len(afternoon_classes), key=f"{weekday}_afternoon_count")
+            
+            edited_afternoon = []
+            for i in range(afternoon_count):
+                default_value = afternoon_classes[i] if i < len(afternoon_classes) else ""
+                class_name = st.text_input(f"{weekday}下午第{i+1}节课", value=default_value, 
+                                         key=f"{weekday}_afternoon_{i}")
+                edited_afternoon.append(class_name)
+            
+            edited_course_data[weekday] = {
+                "上午": edited_morning,
+                "下午": edited_afternoon
+            }
+        
+        # 更新课程安排数据
+        schedule_data["课程安排"] = edited_course_data
+    
+    # 社团安排编辑
+    with tab2:
+        st.subheader("社团安排编辑")
+        club_data = schedule_data.get("社团安排", {})
+        
+        # 为每个星期创建编辑区域
+        weekdays = ["星期一", "星期二", "星期三", "星期四", "星期五"]
+        edited_club_data = {}
+        
+        for weekday in weekdays:
+            st.markdown(f"#### {weekday}")
+            weekday_clubs = club_data.get(weekday, [])
+            
+            # 控制社团数量
+            club_count = st.number_input(f"{weekday}社团数量", min_value=0, max_value=20, 
+                                       value=len(weekday_clubs), key=f"{weekday}_club_count")
+            
+            edited_clubs = []
+            for i in range(club_count):
+                club = weekday_clubs[i] if i < len(weekday_clubs) else {"成员": [], "社团名称": ""}
+                
+                st.markdown(f"##### 社团 {i+1}")
+                club_name = st.text_input(f"{weekday}社团{i+1}名称", 
+                                        value=club.get("社团名称", ""), 
+                                        key=f"{weekday}_club_{i}_name")
+                
+                # 编辑成员列表
+                members = club.get("成员", [])
+                member_str = st.text_area(f"{weekday}社团{i+1}成员（用逗号分隔）", 
+                                        value="，".join(members), 
+                                        key=f"{weekday}_club_{i}_members")
+                
+                # 将成员字符串转换为列表
+                member_list = [m.strip() for m in member_str.split("，") if m.strip()]
+                
+                edited_clubs.append({
+                    "社团名称": club_name,
+                    "成员": member_list
+                })
+            
+            edited_club_data[weekday] = edited_clubs
+        
+        # 更新社团安排数据
+        schedule_data["社团安排"] = edited_club_data
+    
+    # 值日安排编辑
+    with tab3:
+        st.subheader("值日安排编辑")
+        duty_data = schedule_data.get("值日安排", {})
+        
+        # 为每个星期创建编辑区域
+        weekdays = ["星期一", "星期二", "星期三", "星期四", "星期五"]
+        edited_duty_data = {}
+        
+        for weekday in weekdays:
+            duty_students = duty_data.get(weekday, "")
+            edited_duty = st.text_area(f"{weekday}值日生", value=duty_students, 
+                                     key=f"{weekday}_duty_students",
+                                     help="请输入值日生姓名，用逗号或顿号分隔")
+            edited_duty_data[weekday] = edited_duty
+        
+        # 更新值日安排数据
+        schedule_data["值日安排"] = edited_duty_data
+    
+    # 保存按钮
+    if st.button("保存所有更改"):
+        save_schedule_data(schedule_data)
+        st.rerun()
