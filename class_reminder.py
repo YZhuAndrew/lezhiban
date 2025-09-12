@@ -54,7 +54,7 @@ city = '101240701' # "上饶市信州区"
 # 当日期改变时，自动更新天气信息
 # 使用session_state来存储天气信息，避免每次重新计算
 if 'weather_info' not in st.session_state or 'last_selected_date' not in st.session_state or st.session_state.last_selected_date != selected_date:
-    st.session_state.weather_info = get_weather_info(city)
+    st.session_state.weather_info = get_weather_info(city, selected_date)
     st.session_state.last_selected_date = selected_date if selected_date else None
 
 # 创建两列布局，一列用于天气输入框，另一列用于更新按钮
@@ -66,7 +66,7 @@ with button_col:
     if st.button("更新天气", key="update_weather_btn", use_container_width=True):
         # 手动更新天气信息
         with st.spinner("正在获取最新天气信息..."):
-            st.session_state.weather_info = get_weather_info(city)
+            st.session_state.weather_info = get_weather_info(city, selected_date)
             st.session_state.last_selected_date = selected_date
             # 重新运行应用以更新界面
             st.rerun()
