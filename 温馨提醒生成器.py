@@ -80,13 +80,11 @@ special_notes = st.text_area("特别注意事项（可选）",
 #     api_provider = st.selectbox("选择API提供商", ["不使用", "OpenAI", "Anthropic"], index=0)
 #     api_key = st.text_input("API密钥", type="password")
 
-# 生成温馨提示的函数
-def generate_reminder():
-    return generate_reminder_content(selected_date, selected_weekday, weather, schedule_data, special_notes)
 
 # 生成按钮
 if st.button("生成乐知班温馨提示", key="generate_btn", use_container_width=True):
-    reminder_text = generate_reminder()
+    # 只在点击按钮时生成提醒内容
+    reminder_text = generate_reminder_content(selected_date, selected_weekday, weather, schedule_data, special_notes)
     
     # 显示生成的提示
     st.subheader("生成的温馨提示：")
