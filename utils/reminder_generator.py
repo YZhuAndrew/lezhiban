@@ -69,23 +69,24 @@ def generate_reminder_content(
     # 着装提醒
     reminder += f"👔着装提醒：\n"
     if selected_weekday == "星期一":
-        reminder += f"・❗️明天是星期一，大家穿校服，戴红领巾。\n\n"
-    reminder += f"・干净舒适即可\n\n"
+        reminder += f"・🔴明天是星期一，大家穿校服，戴红领巾。\n\n"
+    else:
+        reminder += f"・干净舒适即可\n\n"
     
     # 特别注意事项
     if special_notes and special_notes.strip():
-        reminder += f"❗📢特别注意事项：\n"
+        reminder += f"⚠️📢特别注意事项：\n"
         # 将特别注意事项按行分割并添加项目符号
         notes_lines = special_notes.strip().split('\n')
         for line in notes_lines:
             if line.strip():  # 忽略空行
-                reminder += f"・{line.strip()}\n"
+                reminder += f"・❗️{line.strip()}\n"
         reminder += "\n"
     
     # 其他注意事项
     reminder += f"📌其他注意事项\n"
-    reminder += "・1.请带好明天所需的学习用品和课本\n"
-    reminder += "・2.注意休息，保证充足睡眠，准时到校\n\n"
+    reminder += "・请带好明天所需的学习用品和课本\n"
+    reminder += "・注意休息，保证充足睡眠，准时到校\n\n"
     
     return reminder
 
