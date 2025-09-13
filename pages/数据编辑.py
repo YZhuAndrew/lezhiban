@@ -50,4 +50,8 @@ if st.button("保存所有更改"):
 # 返回主页面的链接
 st.markdown("---")
 if st.button("返回主页面"):
+<<<<<<< HEAD
     st.switch_page("温馨提醒生成器.py")
+=======
+    st.switch_page("class_reminder.py")
+>>>>>>> 251adf91c87f945577e4f80a92a593895a04aa7a
