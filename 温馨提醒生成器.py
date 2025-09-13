@@ -5,7 +5,6 @@ from datetime import datetime, timedelta
 from utils.data_manager import load_schedule_data
 from utils.weather_service import get_weather_info
 from utils.reminder_generator import generate_reminder_content
-from utils.ui_components import render_data_editor
 
 # 设置页面配置
 st.set_page_config(
@@ -99,5 +98,5 @@ if st.button("生成乐知班温馨提示", key="generate_btn", use_container_wi
 
 # 在页面底部添加编辑界面的入口
 st.markdown("---")
-if st.checkbox("显示数据编辑界面"):
-    render_data_editor(schedule_data)
+if st.button("打开数据编辑界面"):
+    st.switch_page("pages/数据编辑.py")
