@@ -83,12 +83,15 @@ special_notes = st.text_area("特别注意事项（可选）",
 
 # 生成按钮
 if st.button("生成乐知班温馨提示", key="generate_btn", use_container_width=True):
-    # 只在点击按钮时生成提醒内容
-    reminder_text = generate_reminder_content(selected_date, selected_weekday, weather, schedule_data, special_notes)
-    
-    # 显示生成的提示
-    st.subheader("生成的温馨提示：")
-    st.code(reminder_text, language="``")
+    with st.spinner("正在生成温馨提示..."):
+        # 确保special_notes不为None
+        safe_special_notes = special_notes if special_notes is not None else ""
+        # 只在点击按钮时生成提醒内容
+        reminder_text = generate_reminder_content(selected_date, selected_weekday, weather, schedule_data, safe_special_notes)
+        
+        # 显示生成的提示
+        st.subheader("生成的温馨提示：")
+        st.code(reminder_text, language="``")
     
     # # 复制功能
     # st.download_button(

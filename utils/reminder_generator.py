@@ -73,7 +73,7 @@ def generate_reminder_content(
     reminder += f"・干净舒适即可\n\n"
     
     # 特别注意事项
-    if special_notes:
+    if special_notes and special_notes.strip():
         reminder += f"❗📢特别注意事项：\n"
         # 将特别注意事项按行分割并添加项目符号
         notes_lines = special_notes.strip().split('\n')
