@@ -5,6 +5,7 @@ from datetime import datetime, timedelta
 from utils.data_manager import load_schedule_data
 from utils.weather_service import get_weather_info
 from utils.reminder_generator import generate_reminder_content
+from utils.history_manager import save_history_record, load_history_records, clear_history_records, format_history_record
 
 # 设置页面配置
 st.set_page_config(
@@ -89,6 +90,16 @@ if st.button("生成乐知班温馨提示", key="generate_btn", use_container_wi
         # 只在点击按钮时生成提醒内容
         reminder_text = generate_reminder_content(selected_date, selected_weekday, weather, schedule_data, safe_special_notes)
         
+        # 保存到历史记录
+        history_record = {
+            "date": selected_date.strftime('%Y年%m月%d日'),
+            "weekday": selected_weekday,
+            "weather": weather,
+            "special_notes": safe_special_notes,
+            "reminder_content": reminder_text
+        }
+        save_history_record(history_record)
+        
         # 显示生成的提示
         st.subheader("生成的温馨提示：")
         st.code(reminder_text, language="``")
@@ -102,7 +113,13 @@ if st.button("生成乐知班温馨提示", key="generate_btn", use_container_wi
     # )
     # st.success("点击上方按钮可复制或下载温馨提示内容！")
 
-# 在页面底部添加编辑界面的入口
+# 在页面底部添加编辑界面和历史记录的入口
 st.markdown("---")
-if st.button("打开数据编辑界面"):
-    st.switch_page("pages/数据编辑.py")
+col1, col2 = st.columns(2)
+with col1:
+    if st.button("打开数据编辑界面"):
+        st.switch_page("pages/数据编辑.py")
+
+with col2:
+    if st.button("查看历史记录"):
+        st.switch_page("pages/历史记录.py")
