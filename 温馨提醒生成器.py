@@ -70,6 +70,11 @@ with button_col:
             # 重新运行应用以更新界面
             st.rerun()
 
+# 特别注意事项
+special_notes = st.text_area("特别注意事项（可选）", 
+                           placeholder="如有特别事项请在此填写，例如：考试安排、活动通知等",
+                           height=100)
+
 # LLM API设置
 # with st.expander("LLM API设置（可选）"):
 #     api_provider = st.selectbox("选择API提供商", ["不使用", "OpenAI", "Anthropic"], index=0)
@@ -77,7 +82,7 @@ with button_col:
 
 # 生成温馨提示的函数
 def generate_reminder():
-    return generate_reminder_content(selected_date, selected_weekday, weather, schedule_data)
+    return generate_reminder_content(selected_date, selected_weekday, weather, schedule_data, special_notes)
 
 # 生成按钮
 if st.button("生成乐知班温馨提示", key="generate_btn", use_container_width=True):
