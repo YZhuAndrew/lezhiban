@@ -42,8 +42,8 @@ def generate_reminder_content(
     if courses:
         morning_classes = courses.get("上午", [])
         afternoon_classes = courses.get("下午", [])
-        reminder += f"・上午：{', '.join([f'[{cls}]' for cls in morning_classes])}\n"
-        reminder += f"・下午：{', '.join([f'[{cls}]' for cls in afternoon_classes])}\n\n"
+        reminder += f"・上午：{', '.join([f'【{cls}】' for cls in morning_classes])}\n"
+        reminder += f"・下午：{', '.join([f'【{cls}】' for cls in afternoon_classes])}\n\n"
     else:
         reminder += f"・明日无课程安排\n\n"
     
@@ -59,7 +59,7 @@ def generate_reminder_content(
             #     club_name = club_name.split("-")[0].split("/")[0]
             members = ", ".join(club["成员"])
             # reminder += f"・{club_name}小组：{members}\n"
-            reminder += f"・{club_name}：{members}\n"
+            reminder += f"・【{club_name}】：{members}\n"
         reminder += "\n"
     else:
         reminder += f"・明日无社团活动\n\n"
