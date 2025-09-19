@@ -10,12 +10,12 @@ from utils.history_manager import save_history_record, load_history_records, cle
 # 设置页面配置
 st.set_page_config(
     page_title="乐知班每日温馨提醒生成器",
-    page_icon="📅",
+    page_icon="🗓",
     layout="wide"
 )
 
 # 标题和说明
-st.title("📅乐知班每日温馨提醒生成器")
+st.title("🗓乐知班每日温馨提醒生成器")
 # st.write("点击下方按钮生成明日的班级温馨提示")
 
 # 加载课程安排数据

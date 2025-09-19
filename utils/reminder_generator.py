@@ -30,7 +30,7 @@ def generate_reminder_content(
     date_str = f"{selected_date.month}月{selected_date.day}日"
     
     # 构建提示内容
-    reminder = f"📅乐知班明日温馨提醒\n"
+    reminder = f"🗓乐知班明日温馨提醒\n"
     reminder += f"⏰・[{date_str}] [{selected_weekday}]⏰\n\n"
     
     # 天气信息
@@ -52,12 +52,14 @@ def generate_reminder_content(
     if clubs:
         for club in clubs:
             # 提取社团名称的主要部分（去除括号内容）
-            club_name = club["社团名称"].split("（")[0]
+            # club_name = club["社团名称"].split("（")[0]
+            club_name = club["社团名称"]
             # 处理特殊字符，如"-"或"/"
-            if "-" in club_name or "/" in club_name:
-                club_name = club_name.split("-")[0].split("/")[0]
+            # if "-" in club_name or "/" in club_name:
+            #     club_name = club_name.split("-")[0].split("/")[0]
             members = ", ".join(club["成员"])
-            reminder += f"・{club_name}小组：{members}\n"
+            # reminder += f"・{club_name}小组：{members}\n"
+            reminder += f"・{club_name}：{members}\n"
         reminder += "\n"
     else:
         reminder += f"・明日无社团活动\n\n"
