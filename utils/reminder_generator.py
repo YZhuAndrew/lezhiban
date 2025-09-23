@@ -1,6 +1,43 @@
 from typing import Dict, Any
 from datetime import date
 
+def get_weather_emoji(weather: str) -> str:
+    """
+    根据天气信息返回对应的emoji
+
+    Args:
+        weather (str): 天气信息文本
+
+    Returns:
+        str: 对应的天气emoji
+    """
+    weather_lower = weather.lower()
+
+    # 晴天相关
+    if any(keyword in weather_lower for keyword in ['晴', 'sunny', 'clear']):
+        return "☀️"
+    # 多云相关
+    elif any(keyword in weather_lower for keyword in ['多云', 'cloud', 'overcast']):
+        return "☁️"
+    # 雨天相关
+    elif any(keyword in weather_lower for keyword in ['雨', 'rain', 'shower', '暴雨', '大雨', '小雨', '中雨']):
+        return "🌧️"
+    # 雪天相关
+    elif any(keyword in weather_lower for keyword in ['雪', 'snow', '大雪', '小雪', '中雪']):
+        return "❄️"
+    # 雷电相关
+    elif any(keyword in weather_lower for keyword in ['雷', 'thunder', 'lightning', '雷阵雨']):
+        return "⛈️"
+    # 雾霾相关
+    elif any(keyword in weather_lower for keyword in ['雾', 'fog', '霾', 'haze', 'smog']):
+        return "🌫️"
+    # 大风相关
+    elif any(keyword in weather_lower for keyword in ['风', 'wind', '大风', '阵风']):
+        return "💨"
+    # 默认天气图标
+    else:
+        return "🌤️"
+
 def generate_reminder_content(
     selected_date: date, 
     selected_weekday: str, 
@@ -34,7 +71,8 @@ def generate_reminder_content(
     reminder += f"⏰・[{date_str}] [{selected_weekday}]⏰\n\n"
     
     # 天气信息
-    reminder += f"🌤️明日天气：\n"
+    weather_emoji = get_weather_emoji(weather)
+    reminder += f"{weather_emoji}明日天气：\n"
     reminder += f"・{weather}\n\n"
     
     # 课程安排
@@ -85,10 +123,11 @@ def generate_reminder_content(
                 reminder += f"・❗️{line.strip()}\n"
         reminder += "\n"
     
-    # 其他注意事项
-    reminder += f"📌其他注意事项\n"
-    reminder += "・请带好明天所需的学习用品和课本\n"
-    reminder += "・注意休息，保证充足睡眠，准时到校\n\n"
+    # 其他注意事项（仅在周一显示）
+    if selected_weekday == "星期一":
+        reminder += f"📌其他注意事项\n"
+        reminder += "・请带好明天所需的学习用品和课本\n"
+        reminder += "・注意休息，保证充足睡眠，准时到校\n\n"
     
     return reminder
 
