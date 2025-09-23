@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>乐知班明日温馨提醒</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'PingFang SC', 'Helvetica Neue', Arial, sans-serif;
+        }
+        
+        body {
+            background: linear-gradient(135deg, #f8f4ff 0%, #e6f7ff 100%);
+            color: #333;
+            line-height: 1.4;
+            padding: 10px;
+            min-height: 100vh;
+        }
+        
+        .container {
+            max-width: 500px;
+            margin: 0 auto;
+        }
+        
+        .header {
+            text-align: center;
+            padding: 12px 0 8px;
+            margin-bottom: 12px;
+        }
+        
+        .header h1 {
+            font-size: 21px;
+            color: #ff6b6b;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+        
+        .date-section {
+            background: linear-gradient(to right, #ff9a9e, #fad0c4);
+            color: white;
+            border-radius: 12px;
+            padding: 10px;
+            margin-bottom: 12px;
+            text-align: center;
+            box-shadow: 0 3px 8px rgba(0, 0, 0, 0.08);
+        }
+        
+        .date-section h2 {
+            font-size: 17px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
+        }
+        
+        .card {
+            background: white;
+            border-radius: 12px;
+            padding: 14px;
+            margin-bottom: 12px;
+            box-shadow: 0 3px 8px rgba(0, 0, 0, 0.06);
+            border: 1px solid rgba(255, 107, 107, 0.15);
+        }
+        
+        .card-title {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            color: #ff6b6b;
+            margin-bottom: 10px;
+            font-size: 16px;
+            font-weight: 600;
+        }
+        
+        .weather-info {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 14px;
+        }
+        
+        .course-section {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+        
+        .course-period {
+            display: flex;
+            gap: 6px;
+        }
+        
+        .period-label {
+            font-weight: bold;
+            min-width: 40px;
+            color: #ff6b6b;
+        }
+        
+        .course-list {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 5px;
+        }
+        
+        .course-item {
+            background: linear-gradient(to right, #a1c4fd, #c2e9fb);
+            padding: 4px 9px;
+            border-radius: 16px;
+            font-size: 13px;
+            color: #333;
+        }
+        
+        .club-item {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            padding: 6px 0;
+        }
+        
+        .duty-list {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 6px;
+            margin-top: 6px;
+        }
+        
+        .duty-item {
+            background: linear-gradient(to right, #d4fc79, #96e6a1);
+            padding: 6px 10px;
+            border-radius: 16px;
+            font-size: 13px;
+            position: relative;
+        }
+        
+        .duty-item.group-leader::after {
+            content: "组长";
+            position: absolute;
+            top: -5px;
+            right: -5px;
+            background: #ff9a9e;
+            color: white;
+            font-size: 8px;
+            padding: 1px 4px;
+            border-radius: 6px;
+        }
+        
+        .notice-section {
+            background: linear-gradient(to right, #fff9c4, #fff59d);
+            border-left: 3px solid #ffd54f;
+            padding: 10px;
+            border-radius: 0 8px 8px 0;
+        }
+        
+        .notice-title {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            color: #ff6b6b;
+            margin-bottom: 6px;
+        }
+        
+        .notice-content {
+            color: #5d4037;
+            font-size: 13px;
+        }
+        
+        .highlight {
+            color: #d32f2f;
+            font-weight: bold;
+        }
+        
+        .emoji {
+            font-size: 16px;
+            font-style: normal;
+        }
+        
+        @media (max-width: 400px) {
+            .card {
+                padding: 12px;
+            }
+            
+            .course-item, .duty-item {
+                font-size: 12px;
+                padding: 3px 7px;
+            }
+            
+            .header h1 {
+                font-size: 19px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1><span class="emoji">🗓</span> 乐知班明日温馨提醒</h1>
+        </div>
+        
+        <div class="date-section">
+            <h2><span class="emoji">⏰</span> 9月23日 星期二</h2>
+        </div>
+        
+        <div class="card">
+            <div class="card-title">
+                <span class="emoji">🌧️</span>
+                <span>明日天气</span>
+            </div>
+            <div class="weather-info">
+                <span class="emoji">🌧️</span>
+                <span>小雨，低温 25℃~高温 33℃</span>
+            </div>
+        </div>
+        
+        <div class="card">
+            <div class="card-title">
+                <span class="emoji">📚</span>
+                <span>明日课程安排</span>
+            </div>
+            <div class="course-section">
+                <div class="course-period">
+                    <div class="period-label">上午：</div>
+                    <div class="course-list">
+                        <div class="course-item">数学</div>
+                        <div class="course-item">语文</div>
+                        <div class="course-item">书法</div>
+                        <div class="course-item">道德与法治</div>
+                    </div>
+                </div>
+                <div class="course-period">
+                    <div class="period-label">下午：</div>
+                    <div class="course-list">
+                        <div class="course-item">体育</div>
+                        <div class="course-item">音乐</div>
+                        <div class="course-item">数学作业辅导</div>
+                        <div class="course-item">经典领读</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="card">
+            <div class="card-title">
+                <span class="emoji">🎨</span>
+                <span>社团课程安排</span>
+            </div>
+            <div class="club-item">
+                <span class="emoji">🥋</span>
+                <span><strong>武术：</strong>夏润修</span>
+            </div>
+        </div>
+        
+        <div class="card">
+            <div class="card-title">
+                <span class="emoji">🧹</span>
+                <span>值日生安排</span>
+            </div>
+            <div class="duty-list">
+                <div class="duty-item group-leader">周致远</div>
+                <div class="duty-item">苏心怡</div>
+                <div class="duty-item">徐之妍</div>
+                <div class="duty-item">徐之恒</div>
+                <div class="duty-item">余书洛</div>
+                <div class="duty-item">王赟艺</div>
+                <div class="duty-item">王宸亿</div>
+                <div class="duty-item">郑子其</div>
+            </div>
+        </div>
+        
+        <div class="card">
+            <div class="card-title">
+                <span class="emoji">👔</span>
+                <span>着装提醒</span>
+            </div>
+            <p>干净舒适即可</p>
+        </div>
+        
+        <div class="card">
+            <div class="notice-section">
+                <div class="notice-title">
+                    <span class="emoji">⚠️</span>
+                    <span>特别注意事项</span>
+                </div>
+                <div class="notice-content">
+                    <span class="emoji">❗️</span> 周三有录课安排，麻烦家长们提醒孩子们听
+                    <span class="highlight">《爱我中华》</span>和
+                    <span class="highlight">《我和我的祖国》</span>
+                    两首歌，会跟着哼唱 <span class="emoji">☺️</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

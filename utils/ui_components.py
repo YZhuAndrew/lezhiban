@@ -157,11 +157,14 @@ def render_club_editor(schedule_data: Dict[str, Any]) -> Dict[str, Any]:
             # 从编辑后的DataFrame中提取数据
             edited_clubs = []
             for _, row in edited_df.iterrows():
-                if row["社团名称"].strip() or row["成员"].strip():
+                # 检查空值并处理
+                club_name = row["社团名称"] or ""
+                members_str = row["成员"] or ""
+                if club_name.strip() or members_str.strip():
                     # 将成员字符串转换为列表
-                    members = [m.strip() for m in row["成员"].split("，") if m.strip()]
+                    members = [m.strip() for m in members_str.split("，") if m.strip()]
                     edited_clubs.append({
-                        "社团名称": row["社团名称"],
+                        "社团名称": club_name,
                         "成员": members
                     })
             
