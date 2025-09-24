@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>乐知班明日温馨提醒</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
     <style>
         * {
             margin: 0;
@@ -73,7 +74,7 @@
             gap: 8px;
             color: #ff6b6b;
             margin-bottom: 10px;
-            font-size: 16px;
+            font-size: 19px;
             font-weight: 600;
         }
         
@@ -81,7 +82,7 @@
             display: flex;
             align-items: center;
             gap: 8px;
-            font-size: 14px;
+            font-size: 15px;
         }
         
         .course-section {
@@ -97,6 +98,7 @@
         
         .period-label {
             font-weight: bold;
+            padding: 4px;
             min-width: 40px;
             color: #ff6b6b;
         }
@@ -104,14 +106,14 @@
         .course-list {
             display: flex;
             flex-wrap: wrap;
-            gap: 5px;
+            gap: 7px;
         }
         
         .course-item {
             background: linear-gradient(to right, #a1c4fd, #c2e9fb);
             padding: 4px 9px;
-            border-radius: 16px;
-            font-size: 13px;
+            border-radius: 10px;
+            /* font-size: 14px; */
             color: #333;
         }
         
@@ -133,7 +135,7 @@
             background: linear-gradient(to right, #d4fc79, #96e6a1);
             padding: 6px 10px;
             border-radius: 16px;
-            font-size: 13px;
+            font-size: 16px;
             position: relative;
         }
         
@@ -144,7 +146,7 @@
             right: -5px;
             background: #ff9a9e;
             color: white;
-            font-size: 8px;
+            font-size: 10px;
             padding: 1px 4px;
             border-radius: 6px;
         }
@@ -179,6 +181,44 @@
             font-style: normal;
         }
         
+        .download-section {
+            text-align: center;
+            margin: 20px 0;
+            padding: 15px;
+            background: rgba(255, 255, 255, 0.8);
+            border-radius: 12px;
+            box-shadow: 0 3px 8px rgba(0, 0, 0, 0.1);
+        }
+        
+        .download-btn {
+            background: linear-gradient(to right, #ff6b6b, #ff9a9e);
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 25px;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 12px rgba(255, 107, 107, 0.3);
+        }
+        
+        .download-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 16px rgba(255, 107, 107, 0.4);
+        }
+        
+        .download-btn:active {
+            transform: translateY(0);
+        }
+        
+        .loading {
+            display: none;
+            color: #ff6b6b;
+            font-size: 14px;
+            margin-top: 10px;
+        }
+        
         @media (max-width: 400px) {
             .card {
                 padding: 12px;
@@ -196,7 +236,7 @@
     </style>
 </head>
 <body>
-    <div class="container">
+    <div class="container" id="reminder-container">
         <div class="header">
             <h1><span class="emoji">🗓</span> 乐知班明日温馨提醒</h1>
         </div>
@@ -293,6 +333,96 @@
                 </div>
             </div>
         </div>
+        
+        <div class="download-section" id="download-section">
+            <button class="download-btn" onclick="downloadAsImage()">
+                📷 下载为图片
+            </button>
+            <div class="loading" id="loading-text">正在生成图片，请稍候...</div>
+        </div>
     </div>
+    
+    <script>
+        function downloadAsImage() {
+            const container = document.getElementById('reminder-container');
+            const downloadSection = document.getElementById('download-section');
+            
+            // 临时隐藏下载区域，避免出现在图片中
+            downloadSection.style.display = 'none';
+            
+            // 使用html2canvas生成图片
+            html2canvas(container, {
+                backgroundColor: '#f8f4ff', // 设置与页面背景相同的颜色
+                scale: 2, // 提高图片质量
+                useCORS: true,
+                allowTaint: true,
+                width: container.scrollWidth,
+                height: container.scrollHeight,
+                logging: false, // 关闭日志
+                removeContainer: false // 不移除容器
+            }).then(canvas => {
+                // 创建下载链接
+                const link = document.createElement('a');
+                link.download = '乐知班温馨提醒_' + new Date(Date.now() + 86400000).toLocaleDateString('zh-CN').replace(/\//g, '') + '.png';
+                link.href = canvas.toDataURL('image/png');
+                
+                // 触发下载
+                document.body.appendChild(link);
+                link.click();
+                document.body.removeChild(link);
+                
+                // 恢复下载区域显示
+                downloadSection.style.display = 'block';
+                
+                // 显示成功提示
+                showNotification('图片下载成功！');
+            }).catch(error => {
+                console.error('生成图片失败:', error);
+                
+                // 恢复下载区域显示
+                downloadSection.style.display = 'block';
+                
+                // 显示错误提示
+                showNotification('生成图片失败，请重试', 'error');
+            });
+        }
+        
+        function showNotification(message, type = 'success') {
+            // 创建通知元素
+            const notification = document.createElement('div');
+            notification.style.cssText = `
+                position: fixed;
+                top: 20px;
+                right: 20px;
+                padding: 12px 20px;
+                background: ${type === 'success' ? '#4caf50' : '#f44336'};
+                color: white;
+                border-radius: 8px;
+                box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+                z-index: 1000;
+                font-size: 14px;
+                font-weight: 500;
+                transform: translateX(100%);
+                transition: transform 0.3s ease;
+            `;
+            notification.textContent = message;
+            
+            // 添加到页面
+            document.body.appendChild(notification);
+            
+            // 显示动画
+            setTimeout(() => {
+                notification.style.transform = 'translateX(0)';
+            }, 100);
+            
+            // 自动隐藏
+            setTimeout(() => {
+                notification.style.transform = 'translateX(100%)';
+                setTimeout(() => {
+                    document.body.removeChild(notification);
+                }, 300);
+            }, 3000);
+        }
+    </script>
 </body>
 </html>

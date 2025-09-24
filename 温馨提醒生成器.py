@@ -144,7 +144,7 @@ if st.session_state.show_editor and st.session_state.reminder_text:
     st.code(edited_reminder, language="``")
     
     # 生成手机网页按钮
-    if st.button("保存并生成手机网页", key="generate_mobile_btn", use_container_width=True):
+    if st.button("保存并生成手机网页（支持图片下载）", key="generate_mobile_btn", use_container_width=True):
         with st.spinner("正在生成手机网页..."):
             # 使用编辑后的内容生成手机网页
             html_content, file_path = generate_mobile_page(edited_reminder, selected_date)
@@ -156,7 +156,7 @@ if st.session_state.show_editor and st.session_state.reminder_text:
             
             # 更新历史记录
             history_record = {
-                "date": selected_date.strftime('%Y年%m月%d日'),
+                "date": selected_date.strftime('%Y年%m%d%d日'),
                 "weekday": selected_weekday,
                 "weather": weather,
                 "special_notes": st.session_state.safe_special_notes,
@@ -168,13 +168,13 @@ if st.session_state.show_editor and st.session_state.reminder_text:
 if st.session_state.show_mobile_page and hasattr(st.session_state, 'html_content'):
     st.subheader("📱 手机网页版本")
     
-    # 创建两列布局
-    col1, col2 = st.columns(2)
+    # 创建三列布局
+    col1, col2, col3 = st.columns([1, 1, 1.2])
     
     with col1:
         # 下载按钮
         st.download_button(
-            label="下载手机网页",
+            label="📄 下载HTML文件",
             data=st.session_state.html_content,
             file_name=f"乐知班温馨提醒_{selected_date.strftime('%Y%m%d')}.html",
             mime="text/html",
@@ -185,9 +185,16 @@ if st.session_state.show_mobile_page and hasattr(st.session_state, 'html_content
         # 显示文件路径
         st.info(f"文件已保存至：\n`{st.session_state.file_path}`")
     
+    with col3:
+        # 添加使用说明
+        st.info("""
+        💡 **使用提示：**
+        在下方预览页面中点击"📷 下载为图片"按钮，可以将温馨提醒保存为PNG图片格式，方便分享和打印。
+        """)
+    
     # 显示网页预览
-    st.markdown("#### 网页预览")
-    components.html(st.session_state.html_content, height=600, scrolling=True)
+    st.markdown("#### 📱 网页预览（含图片下载功能）")
+    components.html(st.session_state.html_content, height=650, scrolling=True)
 
 # 在页面底部添加编辑界面和历史记录的入口
 st.markdown("---")
