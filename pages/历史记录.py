@@ -1,5 +1,7 @@
 import streamlit as st
+import streamlit.components.v1 as components
 from utils.history_manager import load_history_records, clear_history_records, format_history_record
+from utils.mobile_page_generator import generate_mobile_page
 import json
 import os
 from datetime import datetime
@@ -122,6 +124,49 @@ if history_records:
             if st.session_state[f"show_full_{record_key}"]:
                 st.text_area("", value=record.get("reminder_content", ""), height=200, key=f"full_content_{record_key}")
             
+            # 查看网页功能
+            if f"show_web_{record_key}" not in st.session_state:
+                st.session_state[f"show_web_{record_key}"] = False
+            
+            col1, col2 = st.columns(2)
+            with col1:
+                if st.button("查看手机网页", key=f"web_{record_key}"):
+                    reminder_content = record.get("reminder_content", "")
+                    if reminder_content:
+                        # 从日期字符串解析日期对象
+                        try:
+                            # 尝试解析日期格式如 "2025年09月25日"
+                            date_obj = datetime.strptime(date_str, "%Y年%m月%d日").date()
+                        except:
+                            # 如果解析失败，使用当前日期
+                            date_obj = datetime.now().date()
+                        
+                        # 生成手机网页
+                        with st.spinner("正在生成手机网页..."):
+                            html_content, file_path = generate_mobile_page(reminder_content, date_obj)
+                            st.session_state[f"html_content_{record_key}"] = html_content
+                            st.session_state[f"file_path_{record_key}"] = file_path
+                            st.session_state[f"show_web_{record_key}"] = True
+                    else:
+                        st.error("此记录没有提醒内容，无法生成网页")
+            
+            with col2:
+                # 下载网页按钮（只有在生成网页后才显示）
+                if f"html_content_{record_key}" in st.session_state:
+                    st.download_button(
+                        label="下载网页",
+                        data=st.session_state[f"html_content_{record_key}"],
+                        file_name=f"乐知班温馨提醒_{date_str.replace('年', '').replace('月', '').replace('日', '')}.html",
+                        mime="text/html",
+                        key=f"download_{record_key}"
+                    )
+            
+            # 显示网页预览
+            if st.session_state[f"show_web_{record_key}"] and f"html_content_{record_key}" in st.session_state:
+                st.markdown("#### 手机网页预览")
+                components.html(st.session_state[f"html_content_{record_key}"], height=600, scrolling=True)
+                st.info(f"网页文件已保存至：{st.session_state[f'file_path_{record_key}']}")
+            
             # 删除选项
             is_selected = record_key in st.session_state.records_to_delete
             if st.checkbox("选择删除", value=is_selected, key=f"select_{record_key}"):
@@ -135,7 +180,7 @@ if history_records:
             if st.button("删除此记录", key=f"delete_{record_key}"):
                 # 删除单条记录
                 records_to_keep = [
-                    r for r in history_records 
+                    r for r in history_records
                     if r.get("timestamp", "") != timestamp
                 ]
                 
@@ -147,6 +192,13 @@ if history_records:
                     # 从待删除列表中移除
                     if record_key in st.session_state.records_to_delete:
                         st.session_state.records_to_delete.remove(record_key)
+                    
+                    # 清理相关的session_state
+                    keys_to_remove = [f"show_full_{record_key}", f"show_web_{record_key}",
+                                    f"html_content_{record_key}", f"file_path_{record_key}"]
+                    for key in keys_to_remove:
+                        if key in st.session_state:
+                            del st.session_state[key]
                     
                     st.success("记录已删除！")
                     st.rerun()

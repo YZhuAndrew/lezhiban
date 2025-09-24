@@ -84,6 +84,16 @@ special_notes = st.text_area("特别注意事项（可选）",
 #     api_key = st.text_input("API密钥", type="password")
 
 
+# 初始化session_state中的变量
+if 'reminder_text' not in st.session_state:
+    st.session_state.reminder_text = ""
+if 'show_editor' not in st.session_state:
+    st.session_state.show_editor = False
+if 'show_mobile_page' not in st.session_state:
+    st.session_state.show_mobile_page = False
+if 'safe_special_notes' not in st.session_state:
+    st.session_state.safe_special_notes = ""
+
 # 生成按钮
 if st.button("生成乐知班温馨提示", key="generate_btn", use_container_width=True):
     with st.spinner("正在生成温馨提示..."):
@@ -91,6 +101,12 @@ if st.button("生成乐知班温馨提示", key="generate_btn", use_container_wi
         safe_special_notes = special_notes if special_notes is not None else ""
         # 只在点击按钮时生成提醒内容
         reminder_text = generate_reminder_content(selected_date, selected_weekday, weather, schedule_data, safe_special_notes)
+        
+        # 保存到session_state
+        st.session_state.reminder_text = reminder_text
+        st.session_state.show_editor = True
+        st.session_state.show_mobile_page = False
+        st.session_state.safe_special_notes = safe_special_notes
         
         # 保存到历史记录
         history_record = {
@@ -101,48 +117,79 @@ if st.button("生成乐知班温馨提示", key="generate_btn", use_container_wi
             "reminder_content": reminder_text
         }
         save_history_record(history_record)
-        
-        # 显示生成的提示
-        st.subheader("生成的温馨提示：")
-        st.code(reminder_text, language="``")
-        
-        # 生成手机网页
+
+# 显示生成的提示和编辑区域
+if st.session_state.show_editor and st.session_state.reminder_text:
+    st.subheader("生成的温馨提示：")
+    
+    # 创建可编辑的文本区域
+    edited_reminder = st.text_area(
+        "编辑温馨提示内容",
+        value=st.session_state.reminder_text,
+        height=300,
+        key="reminder_editor"
+    )
+    
+    # 保存编辑按钮
+    if st.button("保存编辑内容", key="save_edit_btn", use_container_width=True):
+        st.session_state.reminder_text = edited_reminder
+        st.success("温馨提示内容已保存！")
+    
+    # 生成手机网页按钮
+    if st.button("保存并生成手机网页", key="generate_mobile_btn", use_container_width=True):
         with st.spinner("正在生成手机网页..."):
-            html_content, file_path = generate_mobile_page(reminder_text, selected_date)
+            # 使用编辑后的内容生成手机网页
+            html_content, file_path = generate_mobile_page(edited_reminder, selected_date)
             
-            # 显示网页预览和下载选项
-            st.subheader("📱 手机网页版本")
+            # 保存到session_state
+            st.session_state.html_content = html_content
+            st.session_state.file_path = file_path
+            st.session_state.show_mobile_page = True
             
-            # 创建两列布局
-            col1, col2 = st.columns(2)
-            
-            with col1:
-                # 下载按钮
-                st.download_button(
-                    label="下载手机网页",
-                    data=html_content,
-                    file_name=f"乐知班温馨提醒_{selected_date.strftime('%Y%m%d')}.html",
-                    mime="text/html",
-                    use_container_width=True
-                )
-            
-            with col2:
-                # 显示文件路径
-                st.info(f"文件已保存至：\n`{file_path}`")
-            
-            # 显示网页预览
-            st.markdown("#### 网页预览")
-            components.html(html_content, height=600, scrolling=True)
+            # 更新历史记录
+            history_record = {
+                "date": selected_date.strftime('%Y年%m月%d日'),
+                "weekday": selected_weekday,
+                "weather": weather,
+                "special_notes": st.session_state.safe_special_notes,
+                "reminder_content": edited_reminder
+            }
+            save_history_record(history_record)
     
     # 复制功能
     st.download_button(
         label="复制/下载温馨提示文本",
-        data=reminder_text,
+        data=edited_reminder,
         file_name=f"班级每日温馨提示_{selected_date.strftime('%Y%m%d')}.md",
         mime="text/markdown",
         use_container_width=True
     )
     st.success("点击上方按钮可复制或下载温馨提示内容！")
+
+# 显示手机网页
+if st.session_state.show_mobile_page and hasattr(st.session_state, 'html_content'):
+    st.subheader("📱 手机网页版本")
+    
+    # 创建两列布局
+    col1, col2 = st.columns(2)
+    
+    with col1:
+        # 下载按钮
+        st.download_button(
+            label="下载手机网页",
+            data=st.session_state.html_content,
+            file_name=f"乐知班温馨提醒_{selected_date.strftime('%Y%m%d')}.html",
+            mime="text/html",
+            use_container_width=True
+        )
+    
+    with col2:
+        # 显示文件路径
+        st.info(f"文件已保存至：\n`{st.session_state.file_path}`")
+    
+    # 显示网页预览
+    st.markdown("#### 网页预览")
+    components.html(st.session_state.html_content, height=600, scrolling=True)
 
 # 在页面底部添加编辑界面和历史记录的入口
 st.markdown("---")
