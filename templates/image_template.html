@@ -22,8 +22,10 @@
         }
         
         .container {
-            max-width: 500px;
+            width: 430px;
             margin: 0 auto;
+            transform-origin: top center;
+            transition: transform 0.3s ease;
         }
         
         .header {
@@ -33,7 +35,7 @@
         }
         
         .header h1 {
-            font-size: 21px;
+            font-size: 22px;
             color: #ff6b6b;
             display: flex;
             align-items: center;
@@ -112,8 +114,7 @@
         .course-item {
             background: linear-gradient(to right, #a1c4fd, #c2e9fb);
             padding: 4px 9px;
-            border-radius: 10px;
-            /* font-size: 14px; */
+            border-radius: 13px;
             color: #333;
         }
         
@@ -219,18 +220,24 @@
             margin-top: 10px;
         }
         
-        @media (max-width: 400px) {
-            .card {
-                padding: 12px;
+        /* 简化的媒体查询，主要处理极小屏幕的字体调整 */
+        @media (max-width: 320px) {
+            .header h1 {
+                font-size: 18px;
+            }
+            
+            .card-title {
+                font-size: 16px;
             }
             
             .course-item, .duty-item {
                 font-size: 12px;
-                padding: 3px 7px;
+                padding: 3px 6px;
             }
             
-            .header h1 {
-                font-size: 19px;
+            .download-btn {
+                padding: 10px 20px;
+                font-size: 13px;
             }
         }
     </style>
@@ -343,6 +350,39 @@
     </div>
     
     <script>
+        // 页面加载时应用缩放
+        window.addEventListener('load', function() {
+            applyScaling();
+        });
+        
+        // 窗口大小改变时重新应用缩放
+        window.addEventListener('resize', function() {
+            applyScaling();
+        });
+        
+        function applyScaling() {
+            const container = document.getElementById('reminder-container');
+            const screenWidth = window.innerWidth;
+            const containerWidth = 430; // 固定宽度
+            
+            if (screenWidth < containerWidth) {
+                // 计算缩放比例
+                const scale = screenWidth / containerWidth;
+                // 应用缩放，保持居中
+                container.style.transform = `scale(${scale})`;
+                // 调整容器的margin以保持居中
+                const scaledWidth = containerWidth * scale;
+                const marginLeft = (screenWidth - scaledWidth) / 2;
+                container.style.marginLeft = `${marginLeft}px`;
+                container.style.marginRight = `${marginLeft}px`;
+            } else {
+                // 屏幕宽度足够，不需要缩放
+                container.style.transform = 'scale(1)';
+                container.style.marginLeft = 'auto';
+                container.style.marginRight = 'auto';
+            }
+        }
+        
         function downloadAsImage() {
             const container = document.getElementById('reminder-container');
             const downloadSection = document.getElementById('download-section');
@@ -350,13 +390,20 @@
             // 临时隐藏下载区域，避免出现在图片中
             downloadSection.style.display = 'none';
             
+            // 临时移除缩放效果，确保生成的图片是完整尺寸
+            const originalTransform = container.style.transform;
+            const originalMargin = container.style.margin;
+            container.style.transform = 'scale(1)';
+            // container.style.margin = '0 auto';
+            container.style.margin = '40px 20px auto';
+            
             // 使用html2canvas生成图片
             html2canvas(container, {
                 backgroundColor: '#f8f4ff', // 设置与页面背景相同的颜色
                 scale: 2, // 提高图片质量
                 useCORS: true,
                 allowTaint: true,
-                width: container.scrollWidth,
+                width: 430, // 固定宽度
                 height: container.scrollHeight,
                 logging: false, // 关闭日志
                 removeContainer: false // 不移除容器
@@ -371,6 +418,10 @@
                 link.click();
                 document.body.removeChild(link);
                 
+                // 恢复原始缩放和边距
+                container.style.transform = originalTransform;
+                container.style.margin = originalMargin;
+                
                 // 恢复下载区域显示
                 downloadSection.style.display = 'block';
                 
@@ -378,6 +429,10 @@
                 showNotification('图片下载成功！');
             }).catch(error => {
                 console.error('生成图片失败:', error);
+                
+                // 恢复原始缩放和边距
+                container.style.transform = originalTransform;
+                container.style.margin = originalMargin;
                 
                 // 恢复下载区域显示
                 downloadSection.style.display = 'block';
@@ -395,6 +450,7 @@
                 top: 20px;
                 right: 20px;
                 padding: 12px 20px;
+                // padding: 40px 20px 60px 20px;
                 background: ${type === 'success' ? '#4caf50' : '#f44336'};
                 color: white;
                 border-radius: 8px;
