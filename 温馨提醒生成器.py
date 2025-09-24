@@ -1,4 +1,5 @@
 import streamlit as st
+import streamlit.components.v1 as components
 from datetime import datetime, timedelta
 
 # 导入自定义模块
@@ -6,6 +7,7 @@ from utils.data_manager import load_schedule_data
 from utils.weather_service import get_weather_info
 from utils.reminder_generator import generate_reminder_content
 from utils.history_manager import save_history_record, load_history_records, clear_history_records, format_history_record
+from utils.mobile_page_generator import generate_mobile_page
 
 # 设置页面配置
 st.set_page_config(
@@ -103,15 +105,44 @@ if st.button("生成乐知班温馨提示", key="generate_btn", use_container_wi
         # 显示生成的提示
         st.subheader("生成的温馨提示：")
         st.code(reminder_text, language="``")
+        
+        # 生成手机网页
+        with st.spinner("正在生成手机网页..."):
+            html_content, file_path = generate_mobile_page(reminder_text, selected_date)
+            
+            # 显示网页预览和下载选项
+            st.subheader("📱 手机网页版本")
+            
+            # 创建两列布局
+            col1, col2 = st.columns(2)
+            
+            with col1:
+                # 下载按钮
+                st.download_button(
+                    label="下载手机网页",
+                    data=html_content,
+                    file_name=f"乐知班温馨提醒_{selected_date.strftime('%Y%m%d')}.html",
+                    mime="text/html",
+                    use_container_width=True
+                )
+            
+            with col2:
+                # 显示文件路径
+                st.info(f"文件已保存至：\n`{file_path}`")
+            
+            # 显示网页预览
+            st.markdown("#### 网页预览")
+            components.html(html_content, height=600, scrolling=True)
     
-    # # 复制功能
-    # st.download_button(
-    #     label="复制/下载温馨提示",
-    #     data=reminder_text,
-    #     file_name=f"班级每日温馨提示_{selected_date.strftime('%Y%m%d')}.md",
-    #     mime="text/markdown"
-    # )
-    # st.success("点击上方按钮可复制或下载温馨提示内容！")
+    # 复制功能
+    st.download_button(
+        label="复制/下载温馨提示文本",
+        data=reminder_text,
+        file_name=f"班级每日温馨提示_{selected_date.strftime('%Y%m%d')}.md",
+        mime="text/markdown",
+        use_container_width=True
+    )
+    st.success("点击上方按钮可复制或下载温馨提示内容！")
 
 # 在页面底部添加编辑界面和历史记录的入口
 st.markdown("---")
