@@ -135,6 +135,14 @@ if st.session_state.show_editor and st.session_state.reminder_text:
         st.session_state.reminder_text = edited_reminder
         st.success("温馨提示内容已保存！")
     
+    # # 复制功能
+    # if st.button("复制温馨提示文本", key="copy_btn", use_container_width=True):
+    #     st.success("请选中文本区域中的内容，右键选择复制或按Ctrl+C复制")
+    
+    # # 提供一个文本区域方便用户复制
+    # st.text_area("点击上方按钮后，请在此处选中文本进行复制", value=edited_reminder, height=100, key="copy_area")
+    st.code(edited_reminder, language="``")
+    
     # 生成手机网页按钮
     if st.button("保存并生成手机网页", key="generate_mobile_btn", use_container_width=True):
         with st.spinner("正在生成手机网页..."):
@@ -155,16 +163,6 @@ if st.session_state.show_editor and st.session_state.reminder_text:
                 "reminder_content": edited_reminder
             }
             save_history_record(history_record)
-    
-    # 复制功能
-    st.download_button(
-        label="复制/下载温馨提示文本",
-        data=edited_reminder,
-        file_name=f"班级每日温馨提示_{selected_date.strftime('%Y%m%d')}.md",
-        mime="text/markdown",
-        use_container_width=True
-    )
-    st.success("点击上方按钮可复制或下载温馨提示内容！")
 
 # 显示手机网页
 if st.session_state.show_mobile_page and hasattr(st.session_state, 'html_content'):
