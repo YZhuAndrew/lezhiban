@@ -13,6 +13,7 @@ import os
 from utils.data_manager import load_schedule_data
 from utils.weather_service import get_weather_info
 from utils.reminder_generator import generate_reminder_content
+from utils.mobile_page_generator import generate_mobile_page
 
 def parse_reminder_content(reminder_text):
     """
@@ -258,20 +259,8 @@ def main():
     print(reminder_text)
     print("=" * 50)
     
-    # 解析提醒内容
-    reminder_info = parse_reminder_content(reminder_text)
-    
     # 生成手机网页
-    html_content = generate_mobile_html(reminder_info)
-    
-    # 保存网页文件
-    output_dir = 'output'
-    if not os.path.exists(output_dir):
-        os.makedirs(output_dir)
-    
-    output_file = os.path.join(output_dir, f'lezhiban_reminder_{tomorrow.strftime("%Y%m%d")}.html')
-    with open(output_file, 'w', encoding='utf-8') as f:
-        f.write(html_content)
+    html_content, output_file = generate_mobile_page(reminder_text, tomorrow)
     
     print(f"\n手机网页已生成：{output_file}")
     print("任务完成！")

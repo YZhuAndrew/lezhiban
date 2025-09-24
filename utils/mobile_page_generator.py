@@ -8,6 +8,72 @@ import re
 import os
 from datetime import datetime, timedelta
 
+def get_club_emoji(club_name):
+    """
+    根据社团名称返回对应的emoji
+    
+    Args:
+        club_name (str): 社团名称
+        
+    Returns:
+        str: 对应的emoji
+    """
+    # 将社团名称转换为小写以便匹配
+    club_lower = club_name.lower()
+    
+    # 体育类社团
+    if any(keyword in club_lower for keyword in ['足球']):
+        return "⚽"
+    elif any(keyword in club_lower for keyword in ['篮球']): 
+        return "🏀"
+    elif any(keyword in club_lower for keyword in ['羽毛球']):
+        return "🏸"
+    elif any(keyword in club_lower for keyword in ['乒乓球']):
+        return "🏓"
+    elif any(keyword in club_lower for keyword in ['田径']):
+        return "🏃"
+    elif any(keyword in club_lower for keyword in ['武术', '跆拳道']):
+        return "🥊"
+    elif any(keyword in club_lower for keyword in ['游泳']):
+        return "🏊‍♀️"
+    # 舞蹈类社团
+    elif any(keyword in club_lower for keyword in ['舞蹈', '拉丁舞', '中国舞']):
+        return "💃"
+    # 音乐类社团
+    elif any(keyword in club_lower for keyword in ['音乐', '合唱', '乐器', '葫芦丝']):
+        return "🎵"
+    # 美术类社团
+    elif any(keyword in club_lower for keyword in ['美术', '彩笔画', '线描画', '国画', '创意美术', '3d打印']):
+        return "🎨"
+    # 书法类社团
+    elif any(keyword in club_lower for keyword in ['书法', '硬笔书法', '软笔书法']):
+        return "🖌️"
+    # 科技类社团
+    elif any(keyword in club_lower for keyword in ['科技', '科普']):
+        return "🔬"
+    elif any(keyword in club_lower for keyword in ['编程']):
+        return "🖥️"
+    elif any(keyword in club_lower for keyword in ['机器人']):
+        return "🤖"
+    # 主持表演类
+    elif any(keyword in club_lower for keyword in ['主持', '表演', '主持人']):
+        return "🎭"
+    # 文学类
+    elif any(keyword in club_lower for keyword in ['阅读', '绘本', '文学', '诵读']):
+        return "📚"
+    # 心理类
+    elif any(keyword in club_lower for keyword in ['心理', '趣味心理']):
+        return "🧠"
+    # 劳动类
+    elif any(keyword in club_lower for keyword in ['劳动', '手工']):
+        return "🛠️"
+    # 英语类
+    elif any(keyword in club_lower for keyword in ['英语', '自然拼读']):
+        return "🌍"
+    # 默认emoji
+    else:
+        return "🎯"
+
 def parse_reminder_content(reminder_text):
     """
     解析温馨提醒内容，提取各个部分信息
@@ -144,8 +210,9 @@ def generate_mobile_html(reminder_info, template_path='templates/image_template.
     # 构建社团安排HTML
     clubs_html = ""
     for club in reminder_info['clubs']:
+        club_emoji = get_club_emoji(club["name"])
         clubs_html += '<div class="club-item">'
-        clubs_html += f'<span class="emoji">🎨</span>'
+        clubs_html += f'<span class="emoji">{club_emoji}</span>'
         clubs_html += f'<span><strong>{club["name"]}：</strong>{club["members"]}</span>'
         clubs_html += '</div>'
     
