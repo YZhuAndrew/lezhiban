@@ -237,7 +237,7 @@ def generate_mobile_html(reminder_info, template_path='templates/image_template.
     
     # 替换模板中的占位符
     html_content = template_content.replace(
-        '<h2><span class="emoji">⏰</span> 9月23日 星期二</h2>',
+        '<h2><span class="emoji">⏰</span> 9月23日 星期二 </h2>',
         f'<h2><span class="emoji">⏰</span> {reminder_info["date"]} {reminder_info["weekday"]}</h2>'
     )
     

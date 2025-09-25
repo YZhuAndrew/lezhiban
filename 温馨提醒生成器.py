@@ -156,7 +156,7 @@ if st.session_state.show_editor and st.session_state.reminder_text:
             
             # 更新历史记录
             history_record = {
-                "date": selected_date.strftime('%Y年%m%d%d日'),
+                "date": selected_date.strftime('%Y年%m月%d日'),
                 "weekday": selected_weekday,
                 "weather": weather,
                 "special_notes": st.session_state.safe_special_notes,
