@@ -70,6 +70,16 @@ def generate_reminder_content(
     reminder = f"🗓乐知班明日温馨提醒\n"
     reminder += f"⏰・[{date_str}] [{selected_weekday}]⏰\n\n"
     
+    # 特别注意事项
+    if special_notes and special_notes.strip():
+        reminder += f"⚠️📢特别注意事项：\n"
+        # 将特别注意事项按行分割并添加项目符号
+        notes_lines = special_notes.strip().split('\n')
+        for line in notes_lines:
+            if line.strip():  # 忽略空行
+                reminder += f"・❗️{line.strip()}\n"
+        reminder += "\n"
+
     # 天气信息
     weather_emoji = get_weather_emoji(weather)
     reminder += f"{weather_emoji}明日天气：\n"
@@ -112,16 +122,6 @@ def generate_reminder_content(
         reminder += f"・🔴明天是星期一，大家穿校服，戴红领巾。\n\n"
     else:
         reminder += f"・干净舒适即可\n\n"
-    
-    # 特别注意事项
-    if special_notes and special_notes.strip():
-        reminder += f"⚠️📢特别注意事项：\n"
-        # 将特别注意事项按行分割并添加项目符号
-        notes_lines = special_notes.strip().split('\n')
-        for line in notes_lines:
-            if line.strip():  # 忽略空行
-                reminder += f"・❗️{line.strip()}\n"
-        reminder += "\n"
     
     # 其他注意事项（仅在周一显示）
     if selected_weekday == "星期一":
