@@ -166,34 +166,34 @@ if st.session_state.show_editor and st.session_state.reminder_text:
 
 # 显示手机网页
 if st.session_state.show_mobile_page and hasattr(st.session_state, 'html_content'):
-    st.subheader("📱 手机网页版本")
+    # st.subheader("📱 手机网页版本")
     
     # 创建三列布局
     col1, col2, col3 = st.columns([1, 1, 1.2])
     
-    with col1:
-        # 下载按钮
-        st.download_button(
-            label="📄 下载HTML文件",
-            data=st.session_state.html_content,
-            file_name=f"乐知班温馨提醒_{selected_date.strftime('%Y%m%d')}.html",
-            mime="text/html",
-            use_container_width=True
-        )
+    # with col1:
+    #     # 下载按钮
+    #     st.download_button(
+    #         label="📄 下载HTML文件",
+    #         data=st.session_state.html_content,
+    #         file_name=f"乐知班温馨提醒_{selected_date.strftime('%Y%m%d')}.html",
+    #         mime="text/html",
+    #         use_container_width=True
+    #     )
     
-    with col2:
-        # 显示文件路径
-        st.info(f"文件已保存至：\n`{st.session_state.file_path}`")
+    # with col2:
+    #     # 显示文件路径
+    #     st.info(f"文件已保存至：\n`{st.session_state.file_path}`")
     
-    with col3:
-        # 添加使用说明
-        st.info("""
-        💡 **使用提示：**
-        在下方预览页面中点击"📷 下载为图片"按钮，可以将温馨提醒保存为PNG图片格式，方便分享和打印。
-        """)
+    # with col3:
+    #     # 添加使用说明
+    #     st.info("""
+    #     💡 **使用提示：**
+    #     在下方预览页面中点击"📷 下载为图片"按钮，可以将温馨提醒保存为PNG图片格式，方便分享和打印。
+    #     """)
     
     # 显示网页预览
-    st.markdown("#### 📱 网页预览（含图片下载功能）")
+    st.markdown("#### 📱 网页预览")
     components.html(st.session_state.html_content, height=650, scrolling=True)
 
 # 在页面底部添加编辑界面和历史记录的入口

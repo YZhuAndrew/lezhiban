@@ -1,5 +1,6 @@
 {
     "python-envs.defaultEnvManager": "ms-python.python:conda",
     "python-envs.defaultPackageManager": "ms-python.python:conda",
-    "python-envs.pythonProjects": []
+    "python-envs.pythonProjects": [],
+    "livePreview.defaultPreviewPath": "/output/lezhiban_reminder_20250926.html"
 }
