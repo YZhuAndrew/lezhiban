@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="zh-CN">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -13,7 +12,7 @@
             box-sizing: border-box;
             font-family: 'PingFang SC', 'Helvetica Neue', Arial, sans-serif;
         }
-
+        
         body {
             background: linear-gradient(135deg, #f8f4ff 0%, #e6f7ff 100%);
             color: #333;
@@ -21,25 +20,24 @@
             padding: 10px;
             min-height: 100vh;
         }
-
+        
         .top-banner {
             padding: 100px;
             width: 100%;
         }
-
         .container {
             /* width: 430px; */
             margin: 0 auto;
             transform-origin: top center;
             transition: transform 0.3s ease;
         }
-
+        
         .header {
             text-align: center;
             padding: 12px 0 8px;
             margin-bottom: 12px;
         }
-
+        
         .header h1 {
             font-size: 22px;
             color: #ff6b6b;
@@ -48,7 +46,7 @@
             justify-content: center;
             gap: 8px;
         }
-
+        
         .date-section {
             color: white;
             border-radius: 12px;
@@ -57,36 +55,36 @@
             text-align: center;
             box-shadow: 0 3px 8px rgba(0, 0, 0, 0.08);
         }
-
+        
         /* 为不同星期几定义不同的背景颜色 */
         .date-section.monday {
             background: linear-gradient(to right, #ff9a9e, #fad0c4);
         }
-
+        
         .date-section.tuesday {
             background: linear-gradient(to right, #a1c4fd, #c2e9fb);
         }
-
+        
         .date-section.wednesday {
             background: linear-gradient(to right, #d4fc79, #96e6a1);
         }
-
+        
         .date-section.thursday {
             background: linear-gradient(to right, #f6d365, #fda085);
         }
-
+        
         .date-section.friday {
             background: linear-gradient(to right, #84fab0, #8fd3f4);
         }
-
+        
         .date-section.saturday {
             background: linear-gradient(to right, #ffecd2, #fcb69f);
         }
-
+        
         .date-section.sunday {
             background: linear-gradient(to right, #a6c0fe, #f68084);
         }
-
+        
         .date-section h2 {
             font-size: 17px;
             display: flex;
@@ -94,7 +92,7 @@
             justify-content: center;
             gap: 6px;
         }
-
+        
         .card {
             background: white;
             border-radius: 12px;
@@ -103,7 +101,7 @@
             box-shadow: 0 3px 8px rgba(0, 0, 0, 0.06);
             border: 1px solid rgba(255, 107, 107, 0.15);
         }
-
+        
         .card-title {
             display: flex;
             align-items: center;
@@ -113,59 +111,59 @@
             font-size: 19px;
             font-weight: 600;
         }
-
+        
         .weather-info {
             display: flex;
             align-items: center;
             gap: 8px;
             font-size: 15px;
         }
-
+        
         .course-section {
             display: flex;
             flex-direction: column;
             gap: 10px;
         }
-
+        
         .course-period {
             display: flex;
             gap: 6px;
         }
-
+        
         .period-label {
             font-weight: bold;
             padding: 4px;
             min-width: 40px;
             color: #ff6b6b;
         }
-
+        
         .course-list {
             display: flex;
             flex-wrap: wrap;
             gap: 7px;
         }
-
+        
         .course-item {
             background: linear-gradient(to right, #a1c4fd, #c2e9fb);
             padding: 4px 9px;
             border-radius: 13px;
             color: #333;
         }
-
+        
         .club-item {
             display: flex;
             align-items: center;
             gap: 6px;
             padding: 6px 0;
         }
-
+        
         .duty-list {
             display: flex;
             flex-wrap: wrap;
             gap: 6px;
             margin-top: 6px;
         }
-
+        
         .duty-item {
             background: linear-gradient(to right, #d4fc79, #96e6a1);
             padding: 6px 10px;
@@ -173,7 +171,7 @@
             font-size: 16px;
             position: relative;
         }
-
+        
         .duty-item.group-leader::after {
             content: "组长";
             position: absolute;
@@ -185,14 +183,14 @@
             padding: 1px 4px;
             border-radius: 6px;
         }
-
+        
         .notice-section {
             background: linear-gradient(to right, #fff9c4, #fff59d);
             border-left: 3px solid #ffd54f;
             padding: 10px;
             border-radius: 0 8px 8px 0;
         }
-
+        
         .notice-title {
             display: flex;
             align-items: center;
@@ -200,22 +198,22 @@
             color: #ff6b6b;
             margin-bottom: 6px;
         }
-
+        
         .notice-content {
             color: #5d4037;
             font-size: 16px;
         }
-
+        
         .highlight {
             color: #d32f2f;
             font-weight: bold;
         }
-
+        
         .emoji {
             font-size: 16px;
             font-style: normal;
         }
-
+        
         .download-section {
             text-align: center;
             margin: 20px 0;
@@ -224,7 +222,7 @@
             border-radius: 12px;
             box-shadow: 0 3px 8px rgba(0, 0, 0, 0.1);
         }
-
+        
         .download-btn {
             background: linear-gradient(to right, #ff6b6b, #ff9a9e);
             color: white;
@@ -237,39 +235,38 @@
             transition: all 0.3s ease;
             box-shadow: 0 4px 12px rgba(255, 107, 107, 0.3);
         }
-
+        
         .download-btn:hover {
             transform: translateY(-2px);
             box-shadow: 0 6px 16px rgba(255, 107, 107, 0.4);
         }
-
+        
         .download-btn:active {
             transform: translateY(0);
         }
-
+        
         .loading {
             display: none;
             color: #ff6b6b;
             font-size: 14px;
             margin-top: 10px;
         }
-
+        
         /* 简化的媒体查询，主要处理极小屏幕的字体调整 */
         @media (max-width: 320px) {
             .header h1 {
                 font-size: 18px;
             }
-
+            
             .card-title {
                 font-size: 16px;
             }
-
-            .course-item,
-            .duty-item {
+            
+            .course-item, .duty-item {
                 font-size: 12px;
                 padding: 3px 6px;
             }
-
+            
             .download-btn {
                 padding: 10px 20px;
                 font-size: 13px;
@@ -289,16 +286,15 @@
         }
     </style>
 </head>
-
 <body>
     <div class="container" id="reminder-container">
         <div id="top-banner"></div>
         <div class="header">
             <h1><span class="emoji">🗓</span> 乐知班明日温馨提醒</h1>
         </div>
-
+        
         <div class="date-section">
-            <h2><span class="emoji">⏰</span> 9月23日 星期二 </h2>
+            <h2><span class="emoji">⏰</span> 9月29日 星期一</h2>
         </div>
         <div class="card">
             <div class="notice-section">
@@ -306,81 +302,55 @@
                     <span class="emoji">⚠️</span>
                     <span>特别注意事项</span>
                 </div>
-                <div class="notice-content"><span class="emoji">❗️</span>特别注意事项</div>
+                <div class="notice-content">
+                    <span class="emoji">❗️</span> 周三有录课安排，麻烦家长们提醒孩子们听
+                    <span class="highlight">《爱我中华》</span>和
+                    <span class="highlight">《我和我的祖国》</span>
+                    两首歌，会跟着哼唱 <span class="emoji">☺️</span>
+                </div>
             </div>
         </div>
         <div class="card">
             <div class="card-title">
-                <span class="emoji">🌡️</span>
+                <span class="emoji">🌧️</span>
                 <span>明日天气</span>
             </div>
             <div class="weather-info">
-                <span class="emoji">🌧️</span>
-                <span>小雨，低温 25℃~高温 33℃</span>
+                <span class="emoji">🌤️</span>
+                <span>阴，低温 25℃~高温 33℃</span>
             </div>
         </div>
-
+        
         <div class="card">
             <div class="card-title">
                 <span class="emoji">📚</span>
                 <span>明日课程安排</span>
             </div>
-            <div class="course-section">
-                <div class="course-period">
-                    <div class="period-label">上午：</div>
-                    <div class="course-list">
-                        <div class="course-item">数学</div>
-                        <div class="course-item">语文</div>
-                        <div class="course-item">书法</div>
-                        <div class="course-item">道德与法治</div>
-                    </div>
-                </div>
-                <div class="course-period">
-                    <div class="period-label">下午：</div>
-                    <div class="course-list">
-                        <div class="course-item">体育</div>
-                        <div class="course-item">音乐</div>
-                        <div class="course-item">数学作业辅导</div>
-                        <div class="course-item">经典领读</div>
-                    </div>
-                </div>
-            </div>
+            <div class="course-section"><div class="course-period"><div class="period-label">上午：</div><div class="course-list"><div class="course-item">语文</div><div class="course-item">班队活动/美丽江西</div><div class="course-item">数学</div><div class="course-item">体育</div></div></div><div class="course-period"><div class="period-label">下午：</div><div class="course-list"><div class="course-item">科学</div><div class="course-item">音乐</div><div class="course-item">语文作业辅导</div><div class="course-item">思维探险队</div></div></div></div>
         </div>
-
+        
         <div class="card">
             <div class="card-title">
                 <span class="emoji">🎨</span>
                 <span>社团课程安排</span>
             </div>
-            <div class="club-item">
-                <span class="emoji">🥋</span>
-                <span><strong>武术：</strong>夏润修</span>
-            </div>
+            
         </div>
-
+        
         <div class="card">
             <div class="card-title">
                 <span class="emoji">🧹</span>
                 <span>值日生安排</span>
             </div>
-            <div class="duty-list">
-                <div class="duty-item group-leader">周致远</div>
-                <div class="duty-item">苏心怡</div>
-                <div class="duty-item">徐之妍</div>
-                <div class="duty-item">徐之恒</div>
-                <div class="duty-item">余书洛</div>
-                <div class="duty-item">王赟艺</div>
-                <div class="duty-item">王宸亿</div>
-                <div class="duty-item">郑子其</div>
-            </div>
+            <div class="duty-list"><div class="duty-item group-leader">郏宸唯</div><div class="duty-item">曹欣念</div><div class="duty-item">王梓桐</div><div class="duty-item">徐弘岩</div><div class="duty-item">涂致远</div><div class="duty-item">蒋濛颀</div><div class="duty-item">杨浩铭</div><div class="duty-item">章一诺</div></div>
         </div>
-
+        
         <div class="card">
             <div class="card-title">
                 <span class="emoji">👔</span>
                 <span>着装提醒</span>
             </div>
-            <p>干净舒适即可</p>
+            <p>🔴明天是星期一，大家穿校服，戴红领巾。</p>
         </div>
         <div class="download-section" id="download-section">
             <button class="download-btn" onclick="downloadAsImage()">
@@ -392,21 +362,21 @@
     </div>
     <script>
         // 页面加载时应用缩放和星期几的颜色
-        window.addEventListener('load', function () {
+        window.addEventListener('load', function() {
             applyScaling();
             applyDateSectionColor();
         });
-
+        
         // 窗口大小改变时重新应用缩放
-        window.addEventListener('resize', function () {
+        window.addEventListener('resize', function() {
             applyScaling();
         });
-
+        
         // 根据星期几为date-section添加相应的颜色类
         function applyDateSectionColor() {
             const dateSection = document.querySelector('.date-section');
             const dateText = dateSection.textContent;
-
+            
             // 提取星期几的文本
             let dayOfWeek = '';
             if (dateText.includes('星期一') || dateText.includes('周一')) {
@@ -424,18 +394,18 @@
             } else if (dateText.includes('星期日') || dateText.includes('周日')) {
                 dayOfWeek = 'sunday';
             }
-
+            
             // 添加对应的类名
             if (dayOfWeek) {
                 dateSection.classList.add(dayOfWeek);
             }
         }
-
+        
         function applyScaling() {
             const container = document.getElementById('reminder-container');
             const screenWidth = window.innerWidth;
             const containerWidth = 430; // 固定宽度
-
+            
             if (screenWidth < containerWidth) {
                 // 计算缩放比例
                 const scale = screenWidth / containerWidth;
@@ -453,16 +423,16 @@
                 container.style.marginRight = 'auto';
             }
         }
-
+        
         function downloadAsImage() {
             const container = document.getElementById('reminder-container');
             const downloadSection = document.getElementById('download-section');
             const topBanner = document.getElementById('top-banner');
             const bottomBanner = document.getElementById('bottom-banner');
-
+            
             // 临时隐藏下载区域，避免出现在图片中
             downloadSection.style.display = 'none';
-
+            
             // 临时显示上下banner，使其出现在图片中
             topBanner.style.display = 'block';
             bottomBanner.style.display = 'block';
@@ -474,7 +444,7 @@
             container.style.width = '430px';
             // container.style.margin = '0 auto';
             container.style.margin = '40px 20px auto';
-
+            
             // 使用html2canvas生成图片
             html2canvas(container, {
                 backgroundColor: '#f8f4ff', // 设置与页面背景相同的颜色
@@ -490,36 +460,36 @@
                 const link = document.createElement('a');
                 link.download = '乐知班温馨提醒_' + new Date(Date.now() + 86400000).toLocaleDateString('zh-CN').replace(/\//g, '') + '.png';
                 link.href = canvas.toDataURL('image/png');
-
+                
                 // 触发下载
                 document.body.appendChild(link);
                 link.click();
                 document.body.removeChild(link);
-
+                
                 // 恢复原始缩放和边距
                 container.style.transform = originalTransform;
                 container.style.margin = originalMargin;
-
+                
                 // 恢复下载区域显示
                 downloadSection.style.display = 'block';
-
+                
                 // 显示成功提示
                 showNotification('图片下载成功！');
             }).catch(error => {
                 console.error('生成图片失败:', error);
-
+                
                 // 恢复原始缩放和边距
                 container.style.transform = originalTransform;
                 container.style.margin = originalMargin;
-
+                
                 // 恢复下载区域显示
                 downloadSection.style.display = 'block';
-
+                
                 // 显示错误提示
                 showNotification('生成图片失败，请重试', 'error');
             });
         }
-
+        
         function showNotification(message, type = 'success') {
             // 创建通知元素
             const notification = document.createElement('div');
@@ -540,15 +510,15 @@
                 transition: transform 0.3s ease;
             `;
             notification.textContent = message;
-
+            
             // 添加到页面
             document.body.appendChild(notification);
-
+            
             // 显示动画
             setTimeout(() => {
                 notification.style.transform = 'translateX(0)';
             }, 100);
-
+            
             // 自动隐藏
             setTimeout(() => {
                 notification.style.transform = 'translateX(100%)';
@@ -559,5 +529,4 @@
         }
     </script>
 </body>
-
 </html>

@@ -234,6 +234,7 @@ def generate_mobile_html(reminder_info, template_path='templates/image_template.
             note_with_highlight = re.sub(r'《(.*?)》', r'<span class="highlight">《\1》</span>', note)
             special_html += f'<span class="emoji">❗️</span> {note_with_highlight} <span class="emoji">☺️</span>'
         special_html += '</div>'
+    # print(f'special_html: {special_html}')
     
     # 替换模板中的占位符
     html_content = template_content.replace(
@@ -268,18 +269,23 @@ def generate_mobile_html(reminder_info, template_path='templates/image_template.
     
     if special_html:
         html_content = html_content.replace(
-            '<div class="notice-content">\n                    <span class="emoji">❗️</span> 周三有录课安排，麻烦家长们提醒孩子们听\n                    <span class="highlight">《爱我中华》</span>和\n                    <span class="highlight">《我和我的祖国》</span>\n                    两首歌，会跟着哼唱 <span class="emoji">☺️</span>\n                </div>',
+            '<div class="notice-content"><span class="emoji">❗️</span>特别注意事项</div>',
             special_html
         )
     else:
         # 如果没有特别注意事项，隐藏整个特别注意事项卡片
-        html_content = re.sub(
-            r'<div class="card">\s*<div class="card-title">\s*<span class="emoji">👔</span>\s*<span>着装提醒</span>\s*</div>\s*<p>.*?</p>\s*</div>\s*<div class="card">\s*<div class="notice-section">\s*<div class="notice-title">\s*<span class="emoji">⚠️</span>\s*<span>特别注意事项</span>\s*</div>\s*<div class="notice-content">\s*<span class="emoji">❗️</span>.*?<span class="emoji">☺️</span>\s*</div>\s*</div>\s*</div>',
-            '<div class="card">\n                <div class="card-title">\n                    <span class="emoji">👔</span>\n                    <span>着装提醒</span>\n                </div>\n                <p>' + reminder_info["dress_code"] + '</p>\n            </div>',
-            html_content,
-            flags=re.DOTALL
+        html_content = html_content.replace(
+            '''<div class="card">
+            <div class="notice-section">
+                <div class="notice-title">
+                    <span class="emoji">⚠️</span>
+                    <span>特别注意事项</span>
+                </div>
+                <div class="notice-content"><span class="emoji">❗️</span>特别注意事项</div>
+            </div>
+        </div>''',
+            special_html
         )
-    
     return html_content
 
 def generate_mobile_page(reminder_text, target_date=None):
