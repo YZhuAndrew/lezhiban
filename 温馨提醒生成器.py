@@ -51,7 +51,7 @@ with col2:
     st.info(f"生成对象：{selected_date.strftime('%Y年%m月%d日')} {selected_weekday}")
 
 # 默认城市设置为上饶市信州区
-city = '101240701' # "上饶市信州区"
+city = '101240301' # "上饶市信州区"
 
 # 当日期改变时，自动更新天气信息
 # 使用session_state来存储天气信息，避免每次重新计算

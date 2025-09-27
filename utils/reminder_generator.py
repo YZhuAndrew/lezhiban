@@ -82,7 +82,7 @@ def generate_reminder_content(
 
     # 天气信息
     weather_emoji = get_weather_emoji(weather)
-    reminder += f"{weather_emoji}明日天气：\n"
+    reminder += f"🌡️明日天气：\n"
     reminder += f"・{weather}\n\n"
     
     # 课程安排
